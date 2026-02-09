@@ -1,0 +1,421 @@
+{
+  "currency": "USD",
+  "cost_type": "per_person_per_day",
+  "assumptions": {
+    "adult_regular_multiplier": 1.0,
+    "adult_peak_multiplier": 1.35,
+    "child_discount_range": "60-70%",
+    "airfare_included": false
+  },
+  "destinations": [
+    {
+      "id": 1,
+      "name": "New York City, NY",
+      "region": "Northeast",
+      "days": 4,
+      "adult": { "regular": 250, "peak": 400 },
+      "child": { "regular": 180, "peak": 280 }
+    },
+    {
+      "id": 2,
+      "name": "Boston, MA",
+      "region": "Northeast",
+      "days": 3,
+      "adult": { "regular": 230, "peak": 380 },
+      "child": { "regular": 160, "peak": 260 }
+    },
+    {
+      "id": 3,
+      "name": "Washington, DC",
+      "region": "Northeast",
+      "days": 3,
+      "adult": { "regular": 230, "peak": 380 },
+      "child": { "regular": 160, "peak": 260 }
+    },
+    {
+      "id": 4,
+      "name": "Niagara Falls, NY",
+      "region": "Northeast",
+      "days": 2,
+      "adult": { "regular": 250, "peak": 450 },
+      "child": { "regular": 175, "peak": 325 }
+    },
+    {
+      "id": 5,
+      "name": "Philadelphia, PA",
+      "region": "Northeast",
+      "days": 2,
+      "adult": { "regular": 220, "peak": 350 },
+      "child": { "regular": 150, "peak": 240 }
+    },
+
+    {
+      "id": 6,
+      "name": "Orlando – Disney World, FL",
+      "region": "Southeast",
+      "days": 4,
+      "adult": { "regular": 350, "peak": 500 },
+      "child": { "regular": 250, "peak": 350 }
+    },
+    {
+      "id": 7,
+      "name": "Miami, FL",
+      "region": "Southeast",
+      "days": 3,
+      "adult": { "regular": 300, "peak": 460 },
+      "child": { "regular": 210, "peak": 330 }
+    },
+    {
+      "id": 8,
+      "name": "Key West, FL",
+      "region": "Southeast",
+      "days": 2,
+      "adult": { "regular": 280, "peak": 420 },
+      "child": { "regular": 190, "peak": 300 }
+    },
+    {
+      "id": 9,
+      "name": "Great Smoky Mountains NP",
+      "region": "Southeast",
+      "days": 3,
+      "adult": { "regular": 230, "peak": 350 },
+      "child": { "regular": 160, "peak": 240 }
+    },
+    {
+      "id": 10,
+      "name": "Charleston, SC",
+      "region": "Southeast",
+      "days": 2,
+      "adult": { "regular": 260, "peak": 390 },
+      "child": { "regular": 180, "peak": 270 }
+    },
+
+    {
+      "id": 11,
+      "name": "Chicago, IL",
+      "region": "Midwest",
+      "days": 3,
+      "adult": { "regular": 280, "peak": 430 },
+      "child": { "regular": 200, "peak": 315 }
+    },
+    {
+      "id": 12,
+      "name": "Mall of America, MN",
+      "region": "Midwest",
+      "days": 1,
+      "adult": { "regular": 300, "peak": 450 },
+      "child": { "regular": 220, "peak": 330 }
+    },
+    {
+      "id": 13,
+      "name": "St. Louis, MO",
+      "region": "Midwest",
+      "days": 2,
+      "adult": { "regular": 220, "peak": 340 },
+      "child": { "regular": 150, "peak": 230 }
+    },
+    {
+      "id": 14,
+      "name": "Louisville, KY",
+      "region": "Midwest",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 360 },
+      "child": { "regular": 170, "peak": 260 }
+    },
+    {
+      "id": 15,
+      "name": "Omaha, NE",
+      "region": "Midwest",
+      "days": 2,
+      "adult": { "regular": 210, "peak": 330 },
+      "child": { "regular": 145, "peak": 225 }
+    },
+
+    {
+      "id": 16,
+      "name": "San Francisco, CA",
+      "region": "West Coast",
+      "days": 3,
+      "adult": { "regular": 300, "peak": 470 },
+      "child": { "regular": 210, "peak": 330 }
+    },
+    {
+      "id": 17,
+      "name": "Los Angeles & Hollywood, CA",
+      "region": "West Coast",
+      "days": 3,
+      "adult": { "regular": 290, "peak": 450 },
+      "child": { "regular": 200, "peak": 320 }
+    },
+    {
+      "id": 18,
+      "name": "San Diego, CA",
+      "region": "West Coast",
+      "days": 3,
+      "adult": { "regular": 280, "peak": 430 },
+      "child": { "regular": 190, "peak": 310 }
+    },
+    {
+      "id": 19,
+      "name": "Seattle, WA",
+      "region": "West Coast",
+      "days": 3,
+      "adult": { "regular": 270, "peak": 420 },
+      "child": { "regular": 190, "peak": 300 }
+    },
+    {
+      "id": 20,
+      "name": "Portland, OR",
+      "region": "West Coast",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 360 },
+      "child": { "regular": 170, "peak": 260 }
+    },
+
+    {
+      "id": 21,
+      "name": "Grand Canyon NP, AZ",
+      "region": "National Parks",
+      "days": 3,
+      "adult": { "regular": 260, "peak": 430 },
+      "child": { "regular": 180, "peak": 300 }
+    },
+    {
+      "id": 22,
+      "name": "Yellowstone NP",
+      "region": "National Parks",
+      "days": 4,
+      "adult": { "regular": 230, "peak": 350 },
+      "child": { "regular": 160, "peak": 250 }
+    },
+    {
+      "id": 23,
+      "name": "Yosemite NP, CA",
+      "region": "National Parks",
+      "days": 3,
+      "adult": { "regular": 260, "peak": 430 },
+      "child": { "regular": 180, "peak": 300 }
+    },
+    {
+      "id": 24,
+      "name": "Zion NP, UT",
+      "region": "National Parks",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 380 },
+      "child": { "regular": 165, "peak": 270 }
+    },
+    {
+      "id": 25,
+      "name": "Arches NP & Moab, UT",
+      "region": "National Parks",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 380 },
+      "child": { "regular": 165, "peak": 270 }
+    },
+
+    {
+      "id": 26,
+      "name": "Glacier NP, MT",
+      "region": "National Parks",
+      "days": 3,
+      "adult": { "regular": 250, "peak": 390 },
+      "child": { "regular": 175, "peak": 280 }
+    },
+    {
+      "id": 27,
+      "name": "Grand Teton NP, WY",
+      "region": "National Parks",
+      "days": 3,
+      "adult": { "regular": 270, "peak": 420 },
+      "child": { "regular": 190, "peak": 300 }
+    },
+    {
+      "id": 28,
+      "name": "Rocky Mountain NP, CO",
+      "region": "National Parks",
+      "days": 3,
+      "adult": { "regular": 260, "peak": 420 },
+      "child": { "regular": 180, "peak": 290 }
+    },
+    {
+      "id": 29,
+      "name": "Acadia NP, ME",
+      "region": "National Parks",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 380 },
+      "child": { "regular": 165, "peak": 270 }
+    },
+    {
+      "id": 30,
+      "name": "Death Valley NP",
+      "region": "National Parks",
+      "days": 1,
+      "adult": { "regular": 220, "peak": 340 },
+      "child": { "regular": 150, "peak": 230 }
+    },
+
+    {
+      "id": 31,
+      "name": "Las Vegas, NV",
+      "region": "Iconic Trips",
+      "days": 3,
+      "adult": { "regular": 260, "peak": 390 },
+      "child": { "regular": 180, "peak": 280 }
+    },
+    {
+      "id": 32,
+      "name": "Las Vegas + Hoover Dam",
+      "region": "Iconic Trips",
+      "days": 3,
+      "adult": { "regular": 270, "peak": 410 },
+      "child": { "regular": 190, "peak": 300 }
+    },
+    {
+      "id": 33,
+      "name": "Route 66 Road Trip",
+      "region": "Iconic Trips",
+      "days": 5,
+      "adult": { "regular": 260, "peak": 380 },
+      "child": { "regular": 180, "peak": 260 }
+    },
+    {
+      "id": 34,
+      "name": "Nashville, TN",
+      "region": "Iconic Trips",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 360 },
+      "child": { "regular": 170, "peak": 260 }
+    },
+    {
+      "id": 35,
+      "name": "Austin, TX",
+      "region": "Iconic Trips",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 360 },
+      "child": { "regular": 170, "peak": 260 }
+    },
+
+    {
+      "id": 36,
+      "name": "Phoenix & Sedona, AZ",
+      "region": "Iconic Trips",
+      "days": 3,
+      "adult": { "regular": 250, "peak": 400 },
+      "child": { "regular": 175, "peak": 290 }
+    },
+    {
+      "id": 37,
+      "name": "Santa Fe, NM",
+      "region": "Iconic Trips",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 360 },
+      "child": { "regular": 170, "peak": 260 }
+    },
+    {
+      "id": 38,
+      "name": "Kennedy Space Center, FL",
+      "region": "Iconic Trips",
+      "days": 1,
+      "adult": { "regular": 250, "peak": 400 },
+      "child": { "regular": 175, "peak": 300 }
+    },
+    {
+      "id": 39,
+      "name": "Aspen, CO",
+      "region": "Iconic Trips",
+      "days": 3,
+      "adult": { "regular": 320, "peak": 480 },
+      "child": { "regular": 220, "peak": 350 }
+    },
+    {
+      "id": 40,
+      "name": "Jackson Hole, WY",
+      "region": "Iconic Trips",
+      "days": 3,
+      "adult": { "regular": 300, "peak": 460 },
+      "child": { "regular": 210, "peak": 330 }
+    },
+
+    {
+      "id": 41,
+      "name": "Anchorage, AK",
+      "region": "Alaska & Hawaii",
+      "days": 3,
+      "adult": { "regular": 300, "peak": 460 },
+      "child": { "regular": 210, "peak": 330 }
+    },
+    {
+      "id": 42,
+      "name": "Denali NP, AK",
+      "region": "Alaska & Hawaii",
+      "days": 3,
+      "adult": { "regular": 320, "peak": 480 },
+      "child": { "regular": 220, "peak": 350 }
+    },
+    {
+      "id": 43,
+      "name": "Honolulu (Oahu), HI",
+      "region": "Alaska & Hawaii",
+      "days": 4,
+      "adult": { "regular": 320, "peak": 480 },
+      "child": { "regular": 220, "peak": 350 }
+    },
+    {
+      "id": 44,
+      "name": "Maui, HI",
+      "region": "Alaska & Hawaii",
+      "days": 4,
+      "adult": { "regular": 340, "peak": 520 },
+      "child": { "regular": 240, "peak": 380 }
+    },
+    {
+      "id": 45,
+      "name": "Big Island, HI",
+      "region": "Alaska & Hawaii",
+      "days": 4,
+      "adult": { "regular": 310, "peak": 470 },
+      "child": { "regular": 215, "peak": 340 }
+    },
+
+    {
+      "id": 46,
+      "name": "San Antonio River Walk, TX",
+      "region": "South",
+      "days": 2,
+      "adult": { "regular": 230, "peak": 350 },
+      "child": { "regular": 160, "peak": 240 }
+    },
+    {
+      "id": 47,
+      "name": "Savannah, GA",
+      "region": "South",
+      "days": 2,
+      "adult": { "regular": 230, "peak": 350 },
+      "child": { "regular": 160, "peak": 240 }
+    },
+    {
+      "id": 48,
+      "name": "Mammoth Cave NP, KY",
+      "region": "South",
+      "days": 1,
+      "adult": { "regular": 220, "peak": 340 },
+      "child": { "regular": 150, "peak": 230 }
+    },
+    {
+      "id": 49,
+      "name": "St. Augustine, FL",
+      "region": "South",
+      "days": 1,
+      "adult": { "regular": 220, "peak": 340 },
+      "child": { "regular": 150, "peak": 230 }
+    },
+    {
+      "id": 50,
+      "name": "Pikes Peak & Colorado Springs, CO",
+      "region": "South",
+      "days": 2,
+      "adult": { "regular": 240, "peak": 380 },
+      "child": { "regular": 165, "peak": 270 }
+    }
+  ]
+}
