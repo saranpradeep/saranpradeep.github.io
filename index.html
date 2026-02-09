@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Trip Planner - Plan Your Perfect Vacation</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
 
         .container {
@@ -26,27 +27,64 @@
         header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
-            padding: 20px 0;
+            margin-bottom: 30px;
+            padding: 15px 0;
         }
 
         header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 2.5em;
+            margin-bottom: 8px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         header p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             opacity: 0.9;
         }
 
         .search-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .search-mode-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: #f5f7fa;
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 14px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+            font-size: 1em;
+            touch-action: manipulation;
+        }
+
+        .mode-btn.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .search-mode {
+            display: none;
+        }
+
+        .search-mode.active {
+            display: block;
         }
 
         .form-grid {
@@ -69,12 +107,13 @@
         }
 
         input, select {
-            padding: 12px 16px;
+            padding: 14px 16px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 1em;
             transition: all 0.3s;
             outline: none;
+            touch-action: manipulation;
         }
 
         input:focus, select:focus {
@@ -88,10 +127,10 @@
             gap: 15px;
         }
 
-        button {
+        button[type="submit"], .search-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px 40px;
+            padding: 16px 40px;
             border: none;
             border-radius: 10px;
             font-size: 1.1em;
@@ -100,35 +139,70 @@
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 20px;
             width: 100%;
+            touch-action: manipulation;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        button[type="submit"]:active, .search-btn:active {
+            transform: scale(0.98);
         }
 
-        button:active {
-            transform: translateY(0);
+        .filter-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-chip {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+
+        .filter-chip:active {
+            transform: scale(0.95);
+        }
+
+        .filter-chip.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
         }
 
         .results {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
         }
 
         .trip-card {
             background: white;
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
         }
 
-        .trip-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        .trip-card:active {
+            transform: scale(0.98);
         }
 
         .trip-header {
@@ -138,10 +212,11 @@
         }
 
         .trip-name {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: 700;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            line-height: 1.3;
         }
 
         .trip-region {
@@ -163,16 +238,20 @@
             justify-content: space-between;
             margin: 10px 0;
             padding: 8px 0;
+            gap: 10px;
         }
 
         .detail-label {
             color: #666;
             font-weight: 500;
+            font-size: 0.95em;
         }
 
         .detail-value {
             color: #333;
             font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
         }
 
         .cost-section {
@@ -186,10 +265,12 @@
             display: flex;
             justify-content: space-between;
             margin: 8px 0;
+            gap: 10px;
+            font-size: 0.9em;
         }
 
         .total-cost {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: 700;
             color: #667eea;
             margin-top: 10px;
@@ -197,37 +278,15 @@
             border-top: 2px solid rgba(102, 126, 234, 0.3);
         }
 
-        .season-toggle {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .season-btn {
-            flex: 1;
-            padding: 8px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9em;
-        }
-
-        .season-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
         .no-results {
             text-align: center;
             color: white;
-            font-size: 1.3em;
-            padding: 60px 20px;
+            font-size: 1.2em;
+            padding: 50px 20px;
             background: rgba(255,255,255,0.1);
             border-radius: 15px;
             backdrop-filter: blur(10px);
+            grid-column: 1 / -1;
         }
 
         .match-info {
@@ -235,26 +294,125 @@
             color: white;
             padding: 4px 10px;
             border-radius: 5px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             display: inline-block;
-            margin-top: 5px;
+            margin-left: 5px;
         }
 
+        .suggestion-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .suggestion-header h3 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             header h1 {
-                font-size: 2em;
+                font-size: 1.8em;
+            }
+
+            header p {
+                font-size: 0.95em;
             }
 
             .search-card {
-                padding: 25px;
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .mode-btn {
+                padding: 12px 15px;
+                font-size: 0.9em;
             }
 
             .form-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            button[type="submit"], .search-btn {
+                padding: 14px 30px;
+                font-size: 1em;
             }
 
             .results {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .trip-card {
+                padding: 18px;
+            }
+
+            .trip-name {
+                font-size: 1.15em;
+            }
+
+            .trip-region {
+                font-size: 0.8em;
+                padding: 4px 10px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 3px;
+                padding: 6px 0;
+            }
+
+            .detail-value {
+                text-align: left;
+            }
+
+            .cost-section {
+                padding: 12px;
+            }
+
+            .cost-row {
+                flex-direction: column;
+                gap: 3px;
+                font-size: 0.85em;
+            }
+
+            .total-cost {
+                font-size: 1.1em;
+            }
+
+            .filter-chip {
+                padding: 8px 14px;
+                font-size: 0.85em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .search-card {
+                padding: 15px;
+            }
+
+            .person-inputs {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .mode-btn {
+                padding: 10px 12px;
+                font-size: 0.85em;
             }
         }
     </style>
@@ -267,71 +425,124 @@
         </header>
 
         <div class="search-card">
-            <form id="tripForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="location">Destination</label>
-                        <input
-                            type="text"
-                            id="location"
-                            placeholder="e.g., New York, Miami, Grand Canyon"
-                            list="destinations"
-                            required
-                        >
-                        <datalist id="destinations"></datalist>
-                    </div>
+            <!-- Mode Toggle -->
+            <div class="search-mode-toggle">
+                <button class="mode-btn active" onclick="switchMode('location')">
+                    🔍 Search by Location
+                </button>
+                <button class="mode-btn" onclick="switchMode('days')">
+                    📅 Search by Days
+                </button>
+            </div>
 
-                    <div class="form-group">
-                        <label for="days">Number of Days</label>
-                        <input
-                            type="number"
-                            id="days"
-                            min="1"
-                            max="30"
-                            placeholder="e.g., 5"
-                            required
-                        >
-                    </div>
-                </div>
+            <!-- Search by Location Mode -->
+            <div id="locationMode" class="search-mode active">
+                <form id="locationForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="location">Destination</label>
+                            <input
+                                type="text"
+                                id="location"
+                                placeholder="e.g., New York, Miami, Grand Canyon"
+                                list="destinations"
+                                required
+                            >
+                            <datalist id="destinations"></datalist>
+                        </div>
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Number of Persons</label>
-                        <div class="person-inputs">
-                            <div>
-                                <label for="adults" style="font-size: 0.85em;">Adults</label>
-                                <input
-                                    type="number"
-                                    id="adults"
-                                    min="0"
-                                    value="2"
-                                    placeholder="Adults"
-                                >
-                            </div>
-                            <div>
-                                <label for="children" style="font-size: 0.85em;">Children</label>
-                                <input
-                                    type="number"
-                                    id="children"
-                                    min="0"
-                                    value="0"
-                                    placeholder="Children"
-                                >
-                            </div>
+                        <div class="form-group">
+                            <label for="days">Number of Days</label>
+                            <input
+                                type="number"
+                                id="days"
+                                min="1"
+                                max="30"
+                                placeholder="e.g., 5"
+                                required
+                            >
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="season">Season</label>
-                        <select id="season">
-                            <option value="regular">Regular Season</option>
-                            <option value="peak">Peak Season</option>
-                        </select>
-                    </div>
-                </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Number of Persons</label>
+                            <div class="person-inputs">
+                                <div>
+                                    <label for="adults" style="font-size: 0.85em;">Adults</label>
+                                    <input type="number" id="adults" min="0" value="2">
+                                </div>
+                                <div>
+                                    <label for="children" style="font-size: 0.85em;">Children</label>
+                                    <input type="number" id="children" min="0" value="0">
+                                </div>
+                            </div>
+                        </div>
 
-                <button type="submit">🔍 Search Trips</button>
-            </form>
+                        <div class="form-group">
+                            <label for="season">Season</label>
+                            <select id="season">
+                                <option value="regular">Regular Season</option>
+                                <option value="peak">Peak Season</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit">🔍 Search Trips</button>
+                </form>
+            </div>
+
+            <!-- Search by Days Mode -->
+            <div id="daysMode" class="search-mode">
+                <form id="daysForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="daysInput">How many days do you have?</label>
+                            <input
+                                type="number"
+                                id="daysInput"
+                                min="1"
+                                max="30"
+                                placeholder="e.g., 3"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Number of Persons</label>
+                            <div class="person-inputs">
+                                <div>
+                                    <label for="adults2" style="font-size: 0.85em;">Adults</label>
+                                    <input type="number" id="adults2" min="0" value="2">
+                                </div>
+                                <div>
+                                    <label for="children2" style="font-size: 0.85em;">Children</label>
+                                    <input type="number" id="children2" min="0" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="season2">Season</label>
+                            <select id="season2">
+                                <option value="regular">Regular Season</option>
+                                <option value="peak">Peak Season</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <span class="filter-label">Filter by Region (Optional)</span>
+                        <div class="filter-chips" id="regionFilters">
+                            <div class="filter-chip active" data-region="all">All Regions</div>
+                        </div>
+                    </div>
+
+                    <button type="submit">📅 Find Perfect Destinations</button>
+                </form>
+            </div>
         </div>
 
         <div id="results" class="results"></div>
@@ -342,12 +553,6 @@
         const tripsData = {
             "currency": "USD",
             "cost_type": "per_person_per_day",
-            "assumptions": {
-                "adult_regular_multiplier": 1.0,
-                "adult_peak_multiplier": 1.35,
-                "child_discount_range": "60-70%",
-                "airfare_included": false
-            },
             "destinations": [
                 {"id": 1, "name": "New York City, NY", "region": "Northeast", "days": 4, "adult": {"regular": 250, "peak": 400}, "child": {"regular": 180, "peak": 280}},
                 {"id": 2, "name": "Boston, MA", "region": "Northeast", "days": 3, "adult": {"regular": 230, "peak": 380}, "child": {"regular": 160, "peak": 260}},
@@ -402,9 +607,12 @@
             ]
         };
 
+        let selectedRegion = 'all';
+
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
             populateDestinations();
+            populateRegionFilters();
         });
 
         function populateDestinations() {
@@ -416,12 +624,48 @@
             });
         }
 
-        document.getElementById('tripForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            searchTrips();
-        });
+        function populateRegionFilters() {
+            const regions = [...new Set(tripsData.destinations.map(d => d.region))];
+            const filterContainer = document.getElementById('regionFilters');
 
-        function searchTrips() {
+            regions.forEach(region => {
+                const chip = document.createElement('div');
+                chip.className = 'filter-chip';
+                chip.setAttribute('data-region', region);
+                chip.textContent = region;
+                chip.onclick = () => selectRegion(region);
+                filterContainer.appendChild(chip);
+            });
+        }
+
+        function selectRegion(region) {
+            selectedRegion = region;
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.classList.remove('active');
+                if (chip.getAttribute('data-region') === region) {
+                    chip.classList.add('active');
+                }
+            });
+        }
+
+        function switchMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.search-mode').forEach(m => m.classList.remove('active'));
+
+            if (mode === 'location') {
+                document.querySelector('.mode-btn:first-child').classList.add('active');
+                document.getElementById('locationMode').classList.add('active');
+            } else {
+                document.querySelector('.mode-btn:last-child').classList.add('active');
+                document.getElementById('daysMode').classList.add('active');
+            }
+
+            document.getElementById('results').innerHTML = '';
+        }
+
+        // Location Form Handler
+        document.getElementById('locationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             const location = document.getElementById('location').value.toLowerCase().trim();
             const days = parseInt(document.getElementById('days').value);
             const adults = parseInt(document.getElementById('adults').value) || 0;
@@ -433,48 +677,81 @@
                 return;
             }
 
-            // Search for matching destinations
             const matches = tripsData.destinations.filter(dest => {
                 return dest.name.toLowerCase().includes(location) ||
                        dest.region.toLowerCase().includes(location);
             });
 
-            displayResults(matches, days, adults, children, season);
-        }
+            displayResults(matches, days, adults, children, season, 'Matching Destinations');
+        });
 
-        function displayResults(destinations, requestedDays, adults, children, season) {
+        // Days Form Handler
+        document.getElementById('daysForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const days = parseInt(document.getElementById('daysInput').value);
+            const adults = parseInt(document.getElementById('adults2').value) || 0;
+            const children = parseInt(document.getElementById('children2').value) || 0;
+            const season = document.getElementById('season2').value;
+
+            if (adults + children === 0) {
+                alert('Please enter at least one person (adult or child)');
+                return;
+            }
+
+            let matches = tripsData.destinations.filter(dest => dest.days === days);
+
+            if (selectedRegion !== 'all') {
+                matches = matches.filter(dest => dest.region === selectedRegion);
+            }
+
+            const headerText = `Perfect Destinations for ${days} Day${days > 1 ? 's' : ''}`;
+            displayResults(matches, days, adults, children, season, headerText);
+        });
+
+        function displayResults(destinations, requestedDays, adults, children, season, headerText) {
             const resultsDiv = document.getElementById('results');
 
             if (destinations.length === 0) {
-                resultsDiv.innerHTML =
-                    '<div class="no-results">No destinations found. Try a different search term!</div>';
+                resultsDiv.innerHTML = '<div class="no-results">No destinations found. Try adjusting your search!</div>';
                 return;
             }
 
             resultsDiv.innerHTML = '';
 
+            // Add header if provided
+            if (headerText) {
+                const header = document.createElement('div');
+                header.className = 'suggestion-header';
+                header.innerHTML = `<h3>${headerText}</h3><p>Found ${destinations.length} destination${destinations.length > 1 ? 's' : ''}</p>`;
+                resultsDiv.appendChild(header);
+            }
+
             destinations.forEach(dest => {
                 const card = createTripCard(dest, requestedDays, adults, children, season);
                 resultsDiv.appendChild(card);
             });
+
+            // Smooth scroll to results on mobile
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
         }
 
         function createTripCard(dest, requestedDays, adults, children, season) {
             const card = document.createElement('div');
             card.className = 'trip-card';
 
-            // Calculate costs
             const adultCostPerDay = dest.adult[season];
             const childCostPerDay = dest.child[season];
-
             const totalAdultCost = adults * adultCostPerDay * requestedDays;
             const totalChildCost = children * childCostPerDay * requestedDays;
             const totalCost = totalAdultCost + totalChildCost;
 
-            // Check if requested days match recommended days
             const daysMatch = requestedDays === dest.days;
             const daysInfo = daysMatch
-                ? `<span class="match-info">Perfect Match!</span>`
+                ? `<span class="match-info">✓ Perfect Match!</span>`
                 : `<small style="color: #ff9800;">Recommended: ${dest.days} days</small>`;
 
             card.innerHTML = `
@@ -485,12 +762,12 @@
 
                 <div class="trip-details">
                     <div class="detail-row">
-                        <span class="detail-label">Your Trip Duration:</span>
-                        <span class="detail-value">${requestedDays} days ${daysInfo}</span>
+                        <span class="detail-label">Trip Duration:</span>
+                        <span class="detail-value">${requestedDays} day${requestedDays > 1 ? 's' : ''} ${daysInfo}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Travelers:</span>
-                        <span class="detail-value">${adults} Adult(s), ${children} Child(ren)</span>
+                        <span class="detail-value">${adults} Adult${adults !== 1 ? 's' : ''}, ${children} Child${children !== 1 ? 'ren' : ''}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Season:</span>
@@ -499,22 +776,24 @@
                 </div>
 
                 <div class="cost-section">
+                    ${adults > 0 ? `
                     <div class="cost-row">
-                        <span>Adults (${adults} × $${adultCostPerDay}/day × ${requestedDays} days):</span>
+                        <span>Adults (${adults} × $${adultCostPerDay}/day × ${requestedDays}d)</span>
                         <strong>$${totalAdultCost.toFixed(2)}</strong>
                     </div>
+                    ` : ''}
                     ${children > 0 ? `
                     <div class="cost-row">
-                        <span>Children (${children} × $${childCostPerDay}/day × ${requestedDays} days):</span>
+                        <span>Children (${children} × $${childCostPerDay}/day × ${requestedDays}d)</span>
                         <strong>$${totalChildCost.toFixed(2)}</strong>
                     </div>
                     ` : ''}
                     <div class="cost-row total-cost">
-                        <span>Total Cost:</span>
+                        <span>Total Cost</span>
                         <span>$${totalCost.toFixed(2)}</span>
                     </div>
-                    <div style="margin-top: 10px; font-size: 0.85em; color: #666; text-align: center;">
-                        💡 Cost per person per day (airfare not included)
+                    <div style="margin-top: 8px; font-size: 0.8em; color: #666; text-align: center;">
+                        💡 Per person per day • Airfare not included
                     </div>
                 </div>
             `;
